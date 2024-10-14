@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "sqlserver"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Student {
+  id           String        @id @default(uuid()) // Student ID
+  username     String        @unique
+  name         String
+  printBalance Int // Balance in A4 pages
+  printingLogs PrintingLog[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Printer {
+  id           String        @id @default(uuid()) // Printer ID
+  brand        String
+  model        String
+  description  String
+  location     Location      @relation(fields: [locationId], references: [id])
+  locationId   String
+  enabled      Boolean       @default(true)
+  printingLogs PrintingLog[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Location {
+  id           String    @id @default(uuid())
+  campusName   String
+  buildingName String
+  roomNumber   String
+  printers     Printer[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model PrintingLog {
+  id            String   @id @default(uuid()) // Log ID
+  student       Student  @relation(fields: [studentId], references: [id])
+  studentId     String
+  printer       Printer  @relation(fields: [printerId], references: [id])
+  printerId     String
+  fileName      String
+  startTime     DateTime
+  endTime       DateTime
+  pageSize      String // A4 or A3
+  numPages      Int
+  isDoubleSided Boolean
+  copies        Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SPSO {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Config {
+  id                 String     @id @default(uuid())
+  defaultPageBalance Int // Default number of A4 pages per semester
+  semesterStartDate  DateTime
+  fileTypes          FileType[]
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+}
+
+model FileType {
+  id        String   @id @default(uuid())
+  type      String   @unique
+  config    Config   @relation(fields: [configId], references: [id])
+  configId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
