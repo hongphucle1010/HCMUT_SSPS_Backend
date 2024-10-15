@@ -15,6 +15,7 @@ model Student {
   id           String        @id @default(uuid()) // Student ID
   username     String        @unique
   name         String
+  password     String
   printBalance Int // Balance in A4 pages
   printingLogs PrintingLog[]
   createdAt    DateTime      @default(now())
@@ -65,6 +66,7 @@ model SPSO {
   id        String   @id @default(uuid())
   email     String   @unique
   name      String
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

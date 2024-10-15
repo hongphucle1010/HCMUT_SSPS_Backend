@@ -2,29 +2,29 @@ import passport from 'passport'
 import { Request } from 'express'
 import { Strategy as LocalStrategy } from 'passport-local'
 import bcryptjs from 'bcryptjs'
-import { createUser } from '../model/Student'
+import { createStudent } from '../model/Student'
 
 export function initializeSignUp(): void {
   passport.use(
     'signup',
     new LocalStrategy(
       {
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
       },
-      async (req: Request, email: string, password: string, done) => {
+      async (req: Request, username: string, password: string, done) => {
         try {
-          const { username } = req.body
-          if (!email || !username || !password) {
+          if (!username || !password) {
             return done(null, false, { message: 'Missing required fields' })
           }
 
           const hashPassword = await bcryptjs.hash(password, 10)
-          const user = await createUser({
-            email,
+          const user = await createStudent({
             username,
-            password: hashPassword
+            password: hashPassword,
+            printBalance: 0,
+            name: req.body.name
           })
 
           return done(null, user)

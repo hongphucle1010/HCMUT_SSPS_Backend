@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import bcryptjs from 'bcryptjs'
-import { getUserWithProfileByEmail } from '../model/UserWithProfile'
+import { getStudentByUsername } from '~/model/Student'
 
 export const initializeLogin = (): void => {
   passport.use(
@@ -15,7 +15,7 @@ export const initializeLogin = (): void => {
         // Verify the user's credentials and call the 'done' callback
         // with the user object or an error
         try {
-          const user = await getUserWithProfileByEmail(email)
+          const user = await getStudentByUsername(email)
 
           if (!user) {
             return done(null, false, { message: 'User not found' })
