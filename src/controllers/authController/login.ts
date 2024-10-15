@@ -44,7 +44,7 @@ export const handleLogin = expressAsyncHandler(async (req: Request, res: Respons
 
       const token = generateToken(user) // generate token
       const { password, ...studentWithoutPassword } = user // remove password from user object
-      const response: LogInResponse = { token, user: studentWithoutPassword }
+      const response: LogInResponse = { token, student: studentWithoutPassword }
       res.json(response)
     })
   })(req, res, next)

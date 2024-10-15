@@ -38,10 +38,10 @@ const handleSignUp = expressAsyncHandler(async (req: Request, res: Response, nex
       return next(new HttpError(info.message, HttpStatus.BadRequest))
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...userWithoutPassword } = user
+    const { password, ...studentWithoutPassword } = user
     const response: SignUpResponse = {
       message: SUCCESS_MESSAGES.auth.signUp,
-      user: userWithoutPassword
+      student: studentWithoutPassword
     }
     res.status(HttpStatus.Created).json(response)
   })(req, res, next)
