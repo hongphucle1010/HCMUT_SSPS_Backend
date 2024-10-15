@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ValidationError } from 'express-validator'
 import { HttpStatus, HttpStatusCode } from '../statusCode'
 

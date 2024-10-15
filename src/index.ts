@@ -18,6 +18,11 @@ app.use(passport.initialize())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.get('/test', (req, res) => {
+  res.json({
+    message: 'Hello World'
+  })
+})
 app.use('/api', routes)
 app.use('/*', (req, res, next) => {
   res.json({

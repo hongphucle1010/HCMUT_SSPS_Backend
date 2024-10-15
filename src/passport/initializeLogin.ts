@@ -8,14 +8,14 @@ export const initializeLogin = (): void => {
     'login',
     new LocalStrategy(
       {
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password'
       },
-      async (email, password, done): Promise<void> => {
+      async (username, password, done): Promise<void> => {
         // Verify the user's credentials and call the 'done' callback
         // with the user object or an error
         try {
-          const user = await getStudentByUsername(email)
+          const user = await getStudentByUsername(username)
 
           if (!user) {
             return done(null, false, { message: 'User not found' })

@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken'
 
 export interface UserTokenized {
-  id: number
+  id: string
   username: string
 }
 
