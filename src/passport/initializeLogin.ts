@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import bcryptjs from 'bcryptjs'
-import { getStudentByUsername } from '~/model/Student'
+import { getStudentByUsername } from '../model/Student'
 
 export const initializeLogin = (): void => {
   passport.use(
