@@ -2,7 +2,7 @@
 import { Response, Request, NextFunction } from 'express'
 import passport from 'passport'
 import { body, validationResult } from 'express-validator'
-import { Student } from '@prisma/client'
+import { SPSO, Student } from '@prisma/client'
 import { blockLoggedIn } from './login'
 import { HttpError } from '../../lib/error/HttpErrors'
 import { HttpStatus } from '../../lib/statusCode'
@@ -10,7 +10,7 @@ import { MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from '../../configs/number'
 import ERROR_MESSAGES from '../../configs/errorMessages'
 import SUCCESS_MESSAGES from '../../configs/successMessages'
 import expressAsyncHandler from 'express-async-handler'
-import { SignUpResponse } from './type'
+import { SignUpResponse, SpsoSignUpResponse } from './type'
 
 const validateUser = [
   body('username')
@@ -47,5 +47,22 @@ const handleSignUp = expressAsyncHandler(async (req: Request, res: Response, nex
   })(req, res, next)
 })
 
-const signUpController = [blockLoggedIn, ...validateUser, handleSignUp]
-export { signUpController }
+export const handleSpsoSignUp = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate('spsosignup', { session: false }, async (error: Error, user: SPSO | null, info: any) => {
+    if (error) {
+      return next(error)
+    }
+    if (!user) {
+      return next(new HttpError(info.message, HttpStatus.BadRequest))
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...spsoWithoutPassword } = user
+    const response: SpsoSignUpResponse = {
+      message: SUCCESS_MESSAGES.auth.signUp,
+      spso: spsoWithoutPassword
+    }
+    res.status(HttpStatus.Created).json(response)
+  })(req, res, next)
+})
+
+export const signUpController = [blockLoggedIn, ...validateUser, handleSignUp]

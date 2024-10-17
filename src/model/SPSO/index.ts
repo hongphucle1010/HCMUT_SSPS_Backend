@@ -2,7 +2,7 @@
 import { SPSO } from '@prisma/client'
 import prisma from '../../client'
 
-export async function createSPSO(spso: SPSO) {
+export async function createSPSO(spso: SpsoCreateParams) {
   try {
     return await prisma.sPSO.create({
       data: spso

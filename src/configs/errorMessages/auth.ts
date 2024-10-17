@@ -9,7 +9,9 @@ const AUTHENTICATION_ERROR_MESSAGES = {
   signUp: {
     shortUsername: `Username must be at least ${MIN_USERNAME_LENGTH} characters long.`,
     shortPassword: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long.`
-  }
+  },
+  notSPSO: 'You are not an SPSO.',
+  notStudent: 'You are not a student.'
 }
 
 export default AUTHENTICATION_ERROR_MESSAGES

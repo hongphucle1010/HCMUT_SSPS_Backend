@@ -9,7 +9,7 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "baseUrl": "./", // Đường dẫn base cho các import
     "paths": {
-      // No paths specified as alias is not required
+      "@types/*": ["./src/lib/types/*"]
     }
   },
   "files": ["src/type.d.ts"], // Các file dùng để defined global type cho dự án
