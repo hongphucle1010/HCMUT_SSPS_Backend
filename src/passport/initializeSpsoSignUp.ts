@@ -2,7 +2,7 @@ import passport from 'passport'
 import { Request } from 'express'
 import { Strategy as LocalStrategy } from 'passport-local'
 import bcryptjs from 'bcryptjs'
-import { createSPSO } from 'src/model/SPSO'
+import { createSPSO } from '../model/SPSO'
 
 export function initializeSpsoSignUp(): void {
   passport.use(

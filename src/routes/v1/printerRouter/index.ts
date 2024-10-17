@@ -4,7 +4,7 @@ import {
   deletePrinterController,
   getPrinterController,
   updatePrinterController
-} from 'src/controllers/printerController'
+} from '../../../controllers/printerController'
 
 export const printerRouter = express.Router()
 

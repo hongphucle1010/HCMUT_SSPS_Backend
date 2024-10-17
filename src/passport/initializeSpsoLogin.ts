@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import bcryptjs from 'bcryptjs'
-import { getSPSOByEmail } from 'src/model/SPSO'
+import { getSPSOByEmail } from '../model/SPSO'
 
 export const initializeSpsoLogin = (): void => {
   passport.use(

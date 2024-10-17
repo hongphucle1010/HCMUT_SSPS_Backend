@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
-import { HttpStatus } from 'src/lib/statusCode'
-import { createConfig, deleteConfig, getConfigById, updateConfig } from 'src/model/Config'
+import { HttpStatus } from '../../lib/statusCode'
+import { createConfig, deleteConfig, getConfigById, updateConfig } from '../../model/Config'
 
 export const createConfigController = expressAsyncHandler(async (req: Request, res: Response) => {
   const config = await createConfig(req.body)

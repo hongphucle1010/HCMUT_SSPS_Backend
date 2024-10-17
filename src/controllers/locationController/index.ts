@@ -1,8 +1,8 @@
 import { Location } from '@prisma/client'
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
-import { HttpStatus } from 'src/lib/statusCode'
-import { createLocation, deleteLocation, getLocationById, updateLocation } from 'src/model/Location'
+import { HttpStatus } from '../../lib/statusCode'
+import { createLocation, deleteLocation, getLocationById, updateLocation } from '../../model/Location'
 
 export const createLocationController = expressAsyncHandler(async (req: Request, res: Response) => {
   const location = await createLocation(req.body)

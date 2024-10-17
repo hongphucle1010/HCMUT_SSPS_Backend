@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
-import { HttpStatus } from 'src/lib/statusCode'
-import { createPrintingLog, deletePrintingLog, getPrintingLogById, updatePrintingLog } from 'src/model/PrintingLog'
+import { HttpStatus } from '../../lib/statusCode'
+import { createPrintingLog, deletePrintingLog, getPrintingLogById, updatePrintingLog } from '../../model/PrintingLog'
 
 export const createPrintingLogController = expressAsyncHandler(async (req: Request, res: Response) => {
   const printingLog = await createPrintingLog(req.body)

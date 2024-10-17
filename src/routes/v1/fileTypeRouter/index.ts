@@ -4,7 +4,7 @@ import {
   deleteFileTypeController,
   getFileTypeController,
   updateFileTypeController
-} from 'src/controllers/fileTypeController'
+} from '../../../controllers/fileTypeController'
 
 export const fileTypeRouter = express.Router()
 

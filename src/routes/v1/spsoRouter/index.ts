@@ -1,7 +1,7 @@
 import express from 'express'
-import { blockLoggedInMiddleware, handleSpsoLogin } from 'src/controllers/authController/login'
-import { handleSpsoSignUp } from 'src/controllers/authController/signup'
-import { deleteSpsoController, getSpsoController, updateSpsoController } from 'src/controllers/spsoController'
+import { blockLoggedInMiddleware, handleSpsoLogin } from '../../../controllers/authController/login'
+import { handleSpsoSignUp } from '../../../controllers/authController/signup'
+import { deleteSpsoController, getSpsoController, updateSpsoController } from '../../../controllers/spsoController'
 
 export const spsoRouter = express.Router()
 

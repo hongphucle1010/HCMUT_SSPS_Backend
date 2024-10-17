@@ -4,7 +4,7 @@ import {
   deleteLocationController,
   getLocationController,
   updateLocationController
-} from 'src/controllers/locationController'
+} from '../../../controllers/locationController'
 
 export const locationRouter = express.Router()
 

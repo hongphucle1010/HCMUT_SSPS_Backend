@@ -1,5 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken'
-import { UserRole } from 'src/controllers/authController/type'
+import { UserRole } from '../controllers/authController/type'
 
 export interface UserTokenized {
   id: string

@@ -4,7 +4,7 @@ import {
   deletePrintingLogController,
   getPrintingLogController,
   updatePrintingLogController
-} from 'src/controllers/printingLogController'
+} from '../../../controllers/printingLogController'
 
 export const printingLogRouter = express.Router()
 

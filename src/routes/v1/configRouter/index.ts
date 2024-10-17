@@ -4,7 +4,7 @@ import {
   deleteConfigController,
   getConfigController,
   updateConfigController
-} from 'src/controllers/configController'
+} from '../../../controllers/configController'
 
 export const configRouter = express.Router()
 

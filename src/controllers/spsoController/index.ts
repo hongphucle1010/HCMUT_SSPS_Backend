@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
-import { HttpStatus } from 'src/lib/statusCode'
-import { createSPSO, deleteSPSO, getSPSOById, updateSPSO } from 'src/model/SPSO'
+import { HttpStatus } from '../../lib/statusCode'
+import { createSPSO, deleteSPSO, getSPSOById, updateSPSO } from '../../model/SPSO'
 
 export const createSpsoController = expressAsyncHandler(async (req: Request, res: Response) => {
   const spso = await createSPSO(req.body)
