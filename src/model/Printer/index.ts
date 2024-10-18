@@ -2,7 +2,14 @@
 import { Printer } from '@prisma/client'
 import prisma from '../../client'
 
-export async function createPrinter(printer: Printer) {
+interface PrinterCreateParams {
+  brand: string
+  model: string
+  description: string
+  locationId: string
+  enabled: boolean
+}
+export async function createPrinter(printer: PrinterCreateParams) {
   try {
     return await prisma.printer.create({
       data: printer
@@ -17,7 +24,14 @@ export async function createPrinter(printer: Printer) {
 
 export async function getPrinterById(id: string) {
   return await prisma.printer.findUnique({
-    where: { id }
+    where: { id },
+    include: { location: true }
+  })
+}
+
+export async function getAllPrinters() {
+  return await prisma.printer.findMany({
+    include: { location: true }
   })
 }
 

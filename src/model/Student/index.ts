@@ -17,7 +17,13 @@ export async function createStudent(student: StudentCreateParams) {
 
 export async function getStudentById(id: string) {
   return await prisma.student.findUnique({
-    where: { id }
+    where: { id },
+    select: {
+      id: true,
+      username: true,
+      printBalance: true,
+      name: true
+    }
   })
 }
 
@@ -31,6 +37,16 @@ export async function updateStudent(id: string, student: Student) {
   return await prisma.student.update({
     where: { id },
     data: student
+  })
+}
+
+export async function updateStudentPrintBalance(id: string, printBalance: number) {
+  return await prisma.student.update({
+    where: { id },
+    data: { printBalance },
+    select: {
+      printBalance: true
+    }
   })
 }
 

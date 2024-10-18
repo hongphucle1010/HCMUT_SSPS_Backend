@@ -2,7 +2,7 @@ import { Location } from '@prisma/client'
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import { HttpStatus } from '../../lib/statusCode'
-import { createLocation, deleteLocation, getLocationById, updateLocation } from '../../model/Location'
+import { createLocation, deleteLocation, getAllLocations, getLocationById, updateLocation } from '../../model/Location'
 
 export const createLocationController = expressAsyncHandler(async (req: Request, res: Response) => {
   const location = await createLocation(req.body)
@@ -14,6 +14,12 @@ export const getLocationController = expressAsyncHandler(async (req: Request, re
   const locationId = req.params.id
   const location = await getLocationById(locationId)
   res.status(HttpStatus.OK).json(location)
+})
+
+export const getAllLocationsController = expressAsyncHandler(async (req: Request, res: Response) => {
+  // Get all locations
+  const locations = await getAllLocations()
+  res.status(HttpStatus.OK).json(locations)
 })
 
 export const updateLocationController = expressAsyncHandler(async (req: Request, res: Response) => {

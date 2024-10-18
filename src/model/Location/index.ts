@@ -2,7 +2,12 @@
 import { Location } from '@prisma/client'
 import prisma from '../../client'
 
-export async function createLocation(location: Location) {
+interface LocationCreateParams {
+  campusName: string
+  buildingName: string
+  roomNumber: string
+}
+export async function createLocation(location: LocationCreateParams) {
   try {
     return await prisma.location.create({
       data: location
@@ -19,6 +24,10 @@ export async function getLocationById(id: string) {
   return await prisma.location.findUnique({
     where: { id }
   })
+}
+
+export async function getAllLocations() {
+  return await prisma.location.findMany()
 }
 
 export async function updateLocation(id: string, location: Location) {

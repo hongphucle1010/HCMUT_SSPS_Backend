@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import { HttpStatus } from '../../lib/statusCode'
-import { createPrinter, deletePrinter, getPrinterById, updatePrinter } from '../../model/Printer'
+import { createPrinter, deletePrinter, getAllPrinters, getPrinterById, updatePrinter } from '../../model/Printer'
 
 export const createPrinterController = expressAsyncHandler(async (req: Request, res: Response) => {
   const printer = await createPrinter(req.body)
@@ -13,6 +13,12 @@ export const getPrinterController = expressAsyncHandler(async (req: Request, res
   const printerId = req.params.id
   const printer = await getPrinterById(printerId)
   res.status(HttpStatus.OK).json(printer)
+})
+
+export const getAllPrintersController = expressAsyncHandler(async (req: Request, res: Response) => {
+  // Get all printers
+  const printers = await getAllPrinters()
+  res.status(HttpStatus.OK).json(printers)
 })
 
 export const updatePrinterController = expressAsyncHandler(async (req: Request, res: Response) => {

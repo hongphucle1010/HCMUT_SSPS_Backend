@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Config } from '@prisma/client'
 import prisma from '../../client'
 
-export async function createConfig(config: Config) {
+interface ConfigCreateParams {
+  defaultPageBalance: number
+  semesterStartDate: Date
+}
+export async function createConfig(config: ConfigCreateParams) {
   try {
     return await prisma.config.create({
       data: config
@@ -21,7 +24,13 @@ export async function getConfigById(id: string) {
   })
 }
 
-export async function updateConfig(id: string, config: Config) {
+export async function getAllConfigs() {
+  return await prisma.config.findMany({
+    include: { fileTypes: true }
+  })
+}
+
+export async function updateConfig(id: string, config: ConfigCreateParams) {
   return await prisma.config.update({
     where: { id },
     data: config

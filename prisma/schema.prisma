@@ -54,7 +54,7 @@ model PrintingLog {
   printerId     String
   fileName      String
   startTime     DateTime
-  endTime       DateTime
+  endTime       DateTime?
   pageSize      String // A4 or A3
   numPages      Int
   isDoubleSided Boolean
