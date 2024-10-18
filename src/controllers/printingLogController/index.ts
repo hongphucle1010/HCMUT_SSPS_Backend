@@ -7,7 +7,7 @@ import { HttpError } from '../../lib/error/HttpErrors'
 
 export const createPrintingLogController = expressAsyncHandler(async (req: Request, res: Response) => {
   const currentBalance = req.body.currentBalance
-  const printingPages = req.body.numPages * req.body.copies * (req.body.isDoubleSided ? 2 : 1)
+  const printingPages = req.body.numPages * req.body.copies * (req.body.pageSize == 'A3' ? 2 : 1)
   const newBalance = currentBalance - printingPages
   if (newBalance < 0) {
     throw new HttpError('Insufficient balance', HttpStatus.BadRequest)
