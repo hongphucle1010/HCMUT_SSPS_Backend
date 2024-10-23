@@ -34,6 +34,17 @@ export async function getPrintingLogById(id: string) {
   })
 }
 
+export async function getAllPrintingLogs(id: string) {
+  return await prisma.printingLog.findMany({
+    where: {
+      studentId: id
+    },
+    orderBy: {
+      startTime: 'desc'
+    }
+  })
+}
+
 export async function updatePrintingLog(id: string, printingLog: PrintingLog) {
   return await prisma.printingLog.update({
     where: { id },

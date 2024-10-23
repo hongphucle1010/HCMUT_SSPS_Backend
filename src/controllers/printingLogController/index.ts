@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import { HttpStatus } from '../../lib/statusCode'
-import { createPrintingLog, deletePrintingLog, getPrintingLogById, updatePrintingLog } from '../../model/PrintingLog'
+import { createPrintingLog, deletePrintingLog, getAllPrintingLogs, updatePrintingLog } from '../../model/PrintingLog'
 import { updateStudentPrintBalance } from '../../model/Student'
 import { HttpError } from '../../lib/error/HttpErrors'
 
@@ -12,7 +12,15 @@ export const createPrintingLogController = expressAsyncHandler(async (req: Reque
   if (newBalance < 0) {
     throw new HttpError('Insufficient balance', HttpStatus.BadRequest)
   }
-  const printingLog = await createPrintingLog(req.body)
+  const printingLog = await createPrintingLog({
+    studentId: req.body.studentId,
+    printerId: req.body.printerId,
+    fileName: req.body.fileName,
+    pageSize: req.body.pageSize,
+    numPages: req.body.numPages,
+    isDoubleSided: req.body.isDoubleSided,
+    copies: req.body.copies
+  })
   const studentPrintBalance = await updateStudentPrintBalance(req.body.studentId, newBalance)
   res.status(HttpStatus.Created).json({ ...printingLog, newBalance: studentPrintBalance })
 })
@@ -20,7 +28,7 @@ export const createPrintingLogController = expressAsyncHandler(async (req: Reque
 export const getPrintingLogController = expressAsyncHandler(async (req: Request, res: Response) => {
   // Get printing log
   const printingLogId = req.params.id
-  const printingLog = await getPrintingLogById(printingLogId)
+  const printingLog = await getAllPrintingLogs(printingLogId)
   res.status(HttpStatus.OK).json(printingLog)
 })
 
