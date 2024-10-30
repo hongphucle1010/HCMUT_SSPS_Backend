@@ -4,6 +4,7 @@ import { HttpStatus } from '../../lib/statusCode'
 import { createPrintingLog, deletePrintingLog, getAllPrintingLogs, updatePrintingLog } from '../../model/PrintingLog'
 import { updateStudentPrintBalance } from '../../model/Student'
 import { HttpError } from '../../lib/error/HttpErrors'
+import { PassportJwtPayload } from '../../passport/types'
 
 export const createPrintingLogController = expressAsyncHandler(async (req: Request, res: Response) => {
   const currentBalance = req.body.currentBalance
@@ -27,8 +28,8 @@ export const createPrintingLogController = expressAsyncHandler(async (req: Reque
 
 export const getPrintingLogController = expressAsyncHandler(async (req: Request, res: Response) => {
   // Get printing log
-  const printingLogId = req.params.id
-  const printingLog = await getAllPrintingLogs(printingLogId)
+  const userId = (req.user as PassportJwtPayload).id
+  const printingLog = await getAllPrintingLogs(userId)
   res.status(HttpStatus.OK).json(printingLog)
 })
 
