@@ -11,6 +11,7 @@ import { IVerifyOptions } from 'passport-local'
 import ERROR_MESSAGES from '../../configs/errorMessages'
 import expressAsyncHandler from 'express-async-handler'
 import { LogInResponse, SpsoLogInResponse, UserRole } from './type'
+import { createLogInTime } from '../../model/LogInTimes'
 
 export function generateToken(user: Student | SPSO) {
   // Check if the user is a student or SPSO
@@ -61,6 +62,7 @@ export const handleLogin = expressAsyncHandler(async (req: Request, res: Respons
     //   const response: LogInResponse = { token, student: studentWithoutPassword }
     //   res.json(response)
     // })
+    await createLogInTime(user.id)
     const token = generateToken(user) // generate token
     const { password, ...studentWithoutPassword } = user // remove password from user object
     const response: LogInResponse = { token, student: studentWithoutPassword }
