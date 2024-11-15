@@ -1,5 +1,14 @@
 import prisma from '../../client'
 
+export async function getLogInTimesAll(studentId: string) {
+  // Get all the log in times of a student
+  return await prisma.logInTimes.findMany({
+    where: {
+      studentId
+    }
+  })
+}
+
 export async function getLogInTimes(studentId: string) {
   // Count the number of times a student has logged
   return await prisma.logInTimes.count({

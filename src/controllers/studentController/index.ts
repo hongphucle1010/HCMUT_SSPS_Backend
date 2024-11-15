@@ -2,7 +2,7 @@ import expressAsyncHandler from 'express-async-handler'
 import { getStudentById, updateStudentPrintBalance } from '../../model/Student'
 import { HttpStatus } from '../../lib/statusCode'
 import { Request, Response } from 'express'
-import { getLogInTimes, getLogInTimesToday, getLogInTimesYesterday } from '../../model/LogInTimes'
+import { getLogInTimesAll, getLogInTimesToday, getLogInTimesYesterday } from '../../model/LogInTimes'
 import { PassportJwtPayload } from '../../passport/types'
 
 export const getStudentController = expressAsyncHandler(async (req: Request, res: Response) => {
@@ -16,7 +16,7 @@ export const updateStudentPageBalanceController = expressAsyncHandler(async (req
 })
 
 export const getLogInTimesController = expressAsyncHandler(async (req: Request, res: Response) => {
-  const response = await getLogInTimes((req.user as PassportJwtPayload).id)
+  const response = await getLogInTimesAll((req.user as PassportJwtPayload).id)
   res.status(HttpStatus.OK).json({ logInTimes: response })
 })
 
