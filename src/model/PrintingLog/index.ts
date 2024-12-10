@@ -45,6 +45,10 @@ export async function getAllPrintingLogs(id: string) {
   })
 }
 
+export async function getAllPrintingLogsOfAllStudents() {
+  return await prisma.printingLog.findMany()
+}
+
 export async function getUnprintedPrintingLogs() {
   return await prisma.printingLog.findMany({
     where: {

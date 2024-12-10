@@ -6,6 +6,7 @@ import {
   getAllUnprintedPrintingLogsController,
   getSpsoController,
   makePrintingLogAsPrintedController,
+  spsoGetAllPrintingLogsController,
   updateSpsoController
 } from '../../../controllers/spsoController'
 
@@ -14,6 +15,7 @@ export const spsoRouter = express.Router()
 spsoRouter.post('/signup', [...blockLoggedInMiddleware, handleSpsoSignUp])
 spsoRouter.post('/login', [...blockLoggedInMiddleware, handleSpsoLogin])
 spsoRouter.get('/getUnprintedPrintingLogs', getAllUnprintedPrintingLogsController)
+spsoRouter.get('/getAllPrintingLogs', spsoGetAllPrintingLogsController)
 spsoRouter.get('/', getSpsoController)
 spsoRouter.put('/', updateSpsoController)
 spsoRouter.put('/markPrintingLogAsPrinted', makePrintingLogAsPrintedController)

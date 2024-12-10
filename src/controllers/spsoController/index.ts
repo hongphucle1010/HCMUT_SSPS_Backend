@@ -2,7 +2,11 @@ import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import { HttpStatus } from '../../lib/statusCode'
 import { createSPSO, deleteSPSO, getSPSOById, updateSPSO } from '../../model/SPSO'
-import { getUnprintedPrintingLogs, markPrintingLogAsPrinted } from '../../model/PrintingLog'
+import {
+  getAllPrintingLogsOfAllStudents,
+  getUnprintedPrintingLogs,
+  markPrintingLogAsPrinted
+} from '../../model/PrintingLog'
 
 export const createSpsoController = expressAsyncHandler(async (req: Request, res: Response) => {
   const spso = await createSPSO(req.body)
@@ -36,5 +40,11 @@ export const makePrintingLogAsPrintedController = expressAsyncHandler(async (req
 export const getAllUnprintedPrintingLogsController = expressAsyncHandler(async (req: Request, res: Response) => {
   // Get all unprinted printing logs
   const printingLogs = await getUnprintedPrintingLogs()
+  res.status(HttpStatus.OK).json(printingLogs)
+})
+
+export const spsoGetAllPrintingLogsController = expressAsyncHandler(async (req: Request, res: Response) => {
+  // Get all printing logs
+  const printingLogs = await getAllPrintingLogsOfAllStudents()
   res.status(HttpStatus.OK).json(printingLogs)
 })
