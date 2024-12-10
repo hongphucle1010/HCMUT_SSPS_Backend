@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import { HttpStatus } from '../../lib/statusCode'
 import { createSPSO, deleteSPSO, getSPSOById, updateSPSO } from '../../model/SPSO'
+import { getUnprintedPrintingLogs, markPrintingLogAsPrinted } from '../../model/PrintingLog'
 
 export const createSpsoController = expressAsyncHandler(async (req: Request, res: Response) => {
   const spso = await createSPSO(req.body)
@@ -24,4 +25,16 @@ export const deleteSpsoController = expressAsyncHandler(async (req: Request, res
   // Delete spso
   await deleteSPSO(req.body.id)
   res.status(HttpStatus.NoContent).send()
+})
+
+export const makePrintingLogAsPrintedController = expressAsyncHandler(async (req: Request, res: Response) => {
+  // Mark printing log as printed
+  const printingLog = await markPrintingLogAsPrinted(req.body.id)
+  res.status(HttpStatus.OK).json(printingLog)
+})
+
+export const getAllUnprintedPrintingLogsController = expressAsyncHandler(async (req: Request, res: Response) => {
+  // Get all unprinted printing logs
+  const printingLogs = await getUnprintedPrintingLogs()
+  res.status(HttpStatus.OK).json(printingLogs)
 })
